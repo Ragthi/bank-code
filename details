@@ -1,0 +1,127 @@
+#include<iostream>
+using namespace std;
+class bank_account{
+	char name[20];
+	int account_no=0;
+	char account_type[20];
+	int balance=0,password;
+	public:
+	void create_account(int count);	
+	void add_money(int money){
+		balance+=money;
+		cout<<endl<<"Deposited"<<endl;
+	}
+	void withdraw(int money){
+		if(money<=balance){
+			balance-=money;
+			cout<<endl<<"Withdrawal complete"<<endl;
+		}else{
+			cout<<endl<<"Insufficient money"<<endl<<endl;
+		}
+	}
+	void bank_detail(){
+		cout<<endl<<"Name :"<<name<<endl;
+		cout<<"Account No. :"<<account_no<<endl;
+		cout<<"Account Type :"<<account_type<<endl;
+		cout<<"Balance :"<<balance<<endl<<endl;
+	}
+	bool check_account();
+};
+  void bank_account :: create_account(int count){
+  	    fflush(stdin);
+  	   cout<<"Enter your name"<<endl;
+  	   gets(name);
+  	   cout<<"Enter account type you want to create"<<endl;
+  	   cin>>account_type;
+  	   cout<<"Enter pin for your account"<<endl;
+  	   cin>>password;
+  	   account_no=count;
+  	   cout<<endl<<"This is your account number and password :"<<account_no<<","<<password<<". remember it"<<endl<<endl;
+  }
+  bool bank_account :: check_account(){
+  	int pass;
+  	   cout<<"Enter password"<<endl;
+  	   cin>>pass;
+  	   if(pass==password){
+  	   	return true;
+		}
+		return false;
+  }
+int main(){
+	bank_account ba[20];
+		int count=0;
+	while(1){
+		int i;
+		int r=0;
+		cout<<"Enter 1 to create a new account."<<endl;
+		cout<<"Enter 2 if you already have account"<<endl;
+		cout<<"Enter 0 to exit"<<endl;
+		cin>>i;
+		
+		switch(i){
+			
+			case 1:
+				ba[count].create_account(count);
+				count++;
+				break;
+			case 2:
+				{
+					int acc=0;
+				cout<<"Enter your account number "<<endl;
+				cin>>acc;
+				bool exist = ba[acc].check_account();
+				if(exist){
+						while(1){
+							cout<<"Enter 1 to deposit amount"<<endl;
+		                    cout<<"Enter 2 to withdraw some amount"<<endl;
+		                    cout<<"Enter 3 to see your bank details"<<endl;
+		                    cout<<"Enter 0 to logout"<<endl;
+		                    int j=0;
+		                    cin>>j;
+		                    switch(j){
+		                    	case 1:
+		                    		{
+		                    			int money;
+		                    		cout<<"Enter how much money you want to deposit"<<endl;
+		                    		cin>>money;
+		                    		ba[acc].add_money(money);
+									}
+		                    		break;
+		                    	case 2:
+								    {
+								    	int money;
+								    	cout<<"Enter how much money you want to withdraw"<<endl;
+								    	cin>>money;
+								        ba[acc].withdraw(money);
+								    	
+									}
+									break;	
+								case 3:
+								ba[acc].bank_detail();
+								break;
+								case 0:
+									r=1;
+								break;
+								default:
+								cout<<"Please choose a valid option"<<endl;
+								break;	
+								
+							}
+							if(r==1){
+								break;
+							}
+						}
+				}else{
+					cout<<endl<<"Wrong password or account number "<<endl<<endl;
+				}
+				}
+		        break;
+		    case 0:
+		    	return 0;
+		    default:
+			cout<<"Pls choose a valid option";
+			break;	
+		}
+	}
+	return 0;
+}
