@@ -119,7 +119,7 @@ int main(){
 		    case 0:
 		    	return 0;
 		    default:
-			cout<<"Pls choose a valid option";
+			cout<<"Please choose a valid option";
 			break;	
 		}
 	}
